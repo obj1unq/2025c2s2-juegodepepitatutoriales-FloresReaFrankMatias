@@ -47,23 +47,32 @@ object pepita {
 	method colisionarConSilvestre() {
 	  if(self.position() == silvestre.position()){
 		imagen = "pepita-gris.png"	
-	  }
+	  }//else{
+		//imagen= "pepita.png"
+	  //}
 	  
 	}
 
 }
+
+/// Nido
 object nido {
   method image() = "nido.png"
 	method position() = game.center()
 }
 
+
+
+
+
+/// SILVESTRE
 object silvestre {
   
 	method image() =  "silvestre.png" 
-	var property position = game.origin() 
+	var property position = game.at(3,0) 
 
 	method moverse() {
-		position = game.at( pepita.position().x(), 0  )
+		position = game.at( 3.max(pepita.position().x()), 0  )
 
 	}
 
