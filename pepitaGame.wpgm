@@ -7,8 +7,17 @@ program pepitaGame {
 	game.width(10) 			//valor por defecto 5
 	game.cellSize(50) 		//valor por defecto 50
 	//search assets in assets folder, for example, for the background
-	//Valor por defecto game.ground("ground.png")
+	//Valor por defecto 
+	game.boardGround("fondo.jpg")
 	
-	//game.addVisual(pepita)
+	
+	game.addVisualCharacter(pepita) 
+	game.addVisual(silvestre)
+	game.addVisual(nido)
+	
+	keyboard.left().onPressDo { silvestre.moverse() }
+	keyboard.right().onPressDo { silvestre.moverse() }
+	// game.whenCollideDo(silvestre, { pepita => pepita.colisionarSil() })	
 	game.start()	
 }
+
