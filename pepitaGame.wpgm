@@ -1,5 +1,6 @@
 import wollok.game.*
 import pepita.*
+import extras.*
 
 program pepitaGame {
 	game.title("Pepita") 	//Valor por defecto "Wollok Game"
@@ -11,13 +12,17 @@ program pepitaGame {
 	game.boardGround("fondo.jpg")
 	
 	
-	game.addVisualCharacter(pepita) 
+	 
 	game.addVisual(silvestre)
 	game.addVisual(nido)
+	game.addVisual(pepita)
+	keyboard.left().onPressDo { pepita.mover(izquierda) }
+	keyboard.up().onPressDo {  pepita.mover(arriba)}
+	keyboard.down().onPressDo {   pepita.mover(abajo)}
+	keyboard.right().onPressDo {   pepita.mover(derecha)}
+
+
 	
-	keyboard.left().onPressDo { silvestre.moverse() }
-	keyboard.right().onPressDo { silvestre.moverse() }
-	// game.whenCollideDo(silvestre, { pepita => pepita.colisionarSil() })	
 	game.start()	
 }
 

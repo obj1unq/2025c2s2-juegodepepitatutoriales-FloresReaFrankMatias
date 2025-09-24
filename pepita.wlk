@@ -1,33 +1,38 @@
 
+import  extras.*
+
+
 object pepita {
 	var energia = 100
-  	var imagen = "pepita.png"
-	method image() = imagen
-  	  	
-	method nido() = "nido.png"
-	var property position = game.at(0,4)
-  	method position(nuevaPosition) {
-	  position = nuevaPosition
-		self.colisionarConSilvestre()
-		self.llegarANido()
-	}
-	
-	method subir() {
-    	position = position.up(1)
-  	}
-	method bajar() {
-	  position = position.down(1)
-	}
-	method derecha() {
-	  position = position.right(1)
-	}
-	method izq(c) {
-	  position = position.left(1)
-	}
-	method enDiagonal(cantidadPosiciones) {
-    	position = position.up(cantidadPosiciones).right(cantidadPosiciones)
-  	}
+  	const perseguidor = silvestre
+	const objetivo = nido  	
 
+	var property position = game.at(0,4)
+	method nido() = "nido.png"
+	
+	
+  	
+	
+
+
+	method image() {
+	return "pepita-" + self.estado().nombre()
+	
+	  
+	  	
+	}
+
+	method estado() {
+		return if (position == objetivo.position()) ganadora
+	            else if  ( position == perseguidor.position())    perdedora
+			   else libre
+	}
+
+	method mover(dir) {
+	  position = dir.siguiente(position)
+	}
+
+	
 	method comer(comida) {
 		energia = energia + comida.energiaQueOtorga()
 	}
@@ -39,46 +44,36 @@ object pepita {
 	method energia() {
 		return energia
 	}
-	method llegarANido() { 
-		if(self.position() == nido.position()){ 
-			imagen = "pepita-grande.png"
-		}	 
-	}
-	method colisionarConSilvestre() {
-	  if(self.position() == silvestre.position()){
-		imagen = "pepita-gris.png"	
-	  }//else{
-		//imagen= "pepita.png"
-	  //}
-	  
-	}
-
-}
-
-/// Nido
-object nido {
-  method image() = "nido.png"
-	method position() = game.center()
-}
-
-
-
-
-
-/// SILVESTRE
-object silvestre {
-  
-	method image() =  "silvestre.png" 
-	var property position = game.at(3,0) 
-
-	method moverse() {
-		position = game.at( 3.max(pepita.position().x()), 0  )
-
-	}
-
-	method position(nuevaPosition){
-		position = nuevaPosition
-		
-	}
 	
+	
+
 }
+
+
+object ganadora {
+  method nombre() {
+	return "ganadora.png"
+  }
+}
+
+object perdedora {
+  method nombre() {
+	return "perdedora.png"
+  }
+}
+
+
+object libre {
+  method nombre() {
+	return "libre.png"
+  }
+}
+
+
+
+
+
+
+
+
+
