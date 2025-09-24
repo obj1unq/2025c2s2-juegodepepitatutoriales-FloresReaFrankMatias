@@ -7,6 +7,13 @@ object nido {
 	method position() = game.center()
 }
 
+import pepita.*
+// Nido
+object nido {
+	method image() = "nido.png"
+	method position() = game.center()
+}
+
 
 
 

@@ -39,6 +39,7 @@ object pepita {
 
 	method volar(kms) {
 		energia = energia - 10 - kms 
+		
 	}
 	
 	method energia() {
