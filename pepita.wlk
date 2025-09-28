@@ -1,6 +1,6 @@
 
 import  extras.*
-
+import comidas.*
 
 
 object pepita {
@@ -8,7 +8,7 @@ object pepita {
 	var  position = game.origin()
   	const perseguidor = silvestre
 	const objetivo = nido  	
-	
+	var property comidas  = 2 
 	
 	method energia() {
 		return energia
@@ -63,7 +63,7 @@ object pepita {
 	
 	}
 	method perderAltura() {
-		const posAlCaer = game.at(position.x(), (position.y()-1).max(0))
+		const posAlCaer = game.at(position.x(), (position.y()+1).max(0))
 		if (position.y() < game.height() - 1 && energia > 0 && not self.hayMuroEnP( posAlCaer) ) {
 			self.position(posAlCaer)
 		}
@@ -83,6 +83,7 @@ object pepita {
 ///--------------------   COMIDA     --------------------------------
 	method comer(comida) {
 		energia = energia + comida.energiaQueOtorga()
+		comidas -= 1
 	}
 
 	
