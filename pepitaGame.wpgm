@@ -1,10 +1,7 @@
 import wollok.game.*
 import pepita.*
 import extras.*
-<<<<<<< HEAD
 
-=======
->>>>>>> b14a6b4b8be7b30839381220692173001324160f
 program pepitaGame {
 	game.title("Pepita") 	//Valor por defecto "Wollok Game"
 	game.height(10) 		//valor por defecto 5
@@ -19,30 +16,16 @@ program pepitaGame {
 	game.addVisual(silvestre)
 	game.addVisual(nido)
 	game.addVisual(pepita)
+	game.addVisual(muro)
+	game.addVisual(muro2)
 	keyboard.left().onPressDo { pepita.mover(izquierda) }
 	keyboard.up().onPressDo {  pepita.mover(arriba)}
 	keyboard.down().onPressDo {   pepita.mover(abajo)}
 	keyboard.right().onPressDo {   pepita.mover(derecha)}
 
-
-	
-<<<<<<< HEAD
-=======
-
-
-	keyboard.left().onPressDo { silvestre.moverse() }
-	keyboard.right().onPressDo { silvestre.moverse() }
-	game.whenCollideDo(silvestre, { pepita => pepita.image("pepita-gris.png") })	
-	game.whenCollideDo(nido, { pepita => pepita.image("pepita-grande.png") })	
+	game.onTick(800, "caer", { pepita.perderAltura() })
 	
 	
-	keyboard.left().onPressDo  { pepita.volar(1) }
-	keyboard.right().onPressDo { pepita.volar(1) }
-	keyboard.up().onPressDo    { pepita.volar(1) }
-	keyboard.down().onPressDo  { pepita.volar(1) }
-	
-	
->>>>>>> b14a6b4b8be7b30839381220692173001324160f
 	game.start()	
 }
 

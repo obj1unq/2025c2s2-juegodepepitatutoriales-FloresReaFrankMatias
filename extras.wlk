@@ -1,24 +1,17 @@
 import pepita.*
 
+//---------------------------   NIDO   ---------------------------------
 
-/// Nido
 object nido {
   method image() = "nido.png"
 	method position() = game.center()
 }
 
-import pepita.*
-// Nido
-object nido {
-	method image() = "nido.png"
-	method position() = game.center()
-}
 
 
 
-
-
-/// SILVESTRE
+//---------------------------   SILVESTRE   ---------------------------------
+/// 
 object silvestre {
     const presa = pepita
 
@@ -35,8 +28,6 @@ object silvestre {
 	}
 	
 }
-
-
 
 
 object derecha {
@@ -60,4 +51,27 @@ object arriba {
   method siguiente(position) {
     return position.up(1)
   }
+}
+
+
+
+//----------------------------   MURO    --------------------------------
+
+object  muro{
+  var property position = game.at(5, 7)
+	method image() {return "muro.png"}
+	
+	method encontroCon(cosa) {
+		game.removeTickEvent("caer")
+	}
+}
+
+
+object  muro2{
+  var property position = game.at(5, 3)
+	method image() {return "muro.png"}
+	
+	method encontroCon(cosa) {
+		game.removeTickEvent("caer")
+	}
 }
