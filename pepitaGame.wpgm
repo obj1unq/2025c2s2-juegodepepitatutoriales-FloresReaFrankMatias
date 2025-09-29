@@ -27,8 +27,8 @@ program pepitaGame {
 
 	game.onTick(800, "caer", { pepita.perderAltura() })
 	
-	game.whenCollideDo(pepita, { objeto => objeto.colisionarCon(pepita) })
-
+	//game.whenCollideDo(pepita, { objeto => objeto.colisionarCon(pepita) })
+	game.onCollideDo(pepita, { objeto => objeto.colisionarConPepita()}  )
 	
 	game.start()	
 }

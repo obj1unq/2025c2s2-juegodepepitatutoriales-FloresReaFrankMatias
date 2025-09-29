@@ -15,11 +15,13 @@ object pepita {
 	}
 
 // ----------------------   POSICION Y MOVIMIENTOS  --------------------------------------------	
-	//const nuevaX = newPosicion.x().max(0).min(12)
-	//const nuevaY = newPosicion.y().max(0).min(12)
+	
+	
 	method position(newPosicion) {
 		//const nuevaX = newPosicion.x().max(0).min(game.width() - 1)
    		//const nuevaY = newPosicion.y().max(0).min(game.height() - 1)
+		//const nuevaX = newPosicion.x().max(0).min(12)
+		//const nuevaY = newPosicion.y().max(0).min(12)
 		position = game.at(newPosicion.x(), newPosicion.y())
 	}
 	method position() {
@@ -40,33 +42,33 @@ object pepita {
 		game.stop()
 	  }
 	}
-	method validarMover(nuevaPos) {
-		 if (energia < 1) {
-			self.error("Pepita no tiene suficiente energía")
+	method validarMover(nuevaPos) { 
+		 if (energia < 1 || self.position()== silvestre.position()  || self.dentroDeLosMargenes(nuevaPos)) {
+			self.error("Pepita no se pude mover ")
 		}
-		if (nuevaPos.x() < 0 || nuevaPos.x() >= game.width()
-			|| nuevaPos.y() < 0 || nuevaPos.y() >= game.height()) {
-			console.println( "No puedo moverme")
-			self.error( "No puedo salir del tablero ")
-		}
-		if (self.hayMuroEnP(nuevaPos)){
+		else if (self.hayMuroEnP(nuevaPos)){
 			self.error("Hay un Muroooooo")
 		}
 	}
 	method volar(kms) {
-		energia = energia - 9 - kms 
-		
+		energia = energia - 9 - kms 	
 	}
+	
+
+	method dentroDeLosMargenes(sigPosicion) {
+	  return (sigPosicion.x() < 0 || sigPosicion.x() >= game.width()
+			     ||  sigPosicion.y() < 0 || sigPosicion.y() >= game.height()) 
+	} 
 	//--------------------  GRAVEDAD  Y MURO     --------------------------------------------
 	method hayMuroEnP(posicion) {
 		return (posicion == muro.position()) || (posicion == muro2.position())
 	
 	}
 	method perderAltura() {
-		const posAlCaer = game.at(position.x(), (position.y()+1).max(0))
-		if (position.y() < game.height() - 1 && energia > 0 && not self.hayMuroEnP( posAlCaer) ) {
-			self.position(posAlCaer)
-		}
+		const posAlCaer = game.at(position.x(), (position.y()-1).max(0))
+		self.validarMover(posAlCaer)
+		self.position(posAlCaer)
+		
 	}
 	
 //------------------------  ESTADOS E IMAGEN   --------------------------
@@ -87,6 +89,23 @@ object pepita {
 	}
 
 	
+//------------------------------------------------------
+	method ganar() {
+	  if (self.comidas() == 0 ){ 
+      game.say(self,"¡GANE!")
+      //game.tick(2000, game.stop() , false)
+      game.removeTickEvent("caer")
+      // game.onTick(2000, "parar juego", {game.stop()})
+		game.schedule(2000, { game.stop() } )
+	}
+	}
+
+method perder() {
+  	game.say(self,"¡PERDÍ!")
+    //game.onTick(2000, "Perder" , {game.stop()})		
+    game.schedule(2000, { game.stop() } )
+
+}
 //-------------------------TEXT ENERGIA  ------------------------------
 	method text() {	return "" + energia + ""	}
 	method textColor() = paleta.verde()

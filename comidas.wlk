@@ -1,4 +1,5 @@
 import wollok.game.*
+import pepita.*
 
 object manzana {
 	const base= 5
@@ -14,9 +15,9 @@ object manzana {
 		//madurez += 1
 	}
 
-	 method colisionarCon(objeto) {
-    	objeto.comer(self)
-		game.say(objeto,"Comí la manzana!")
+	 method colisionarConPepita() {
+    	pepita.comer(self)
+		//game.say(pepita,"Comí la manzana!")
 		game.removeVisual(self)
   }
 
@@ -29,9 +30,9 @@ object alpiste {
 		return 20
 	} 
 
-  method colisionarCon(objeto) {
-    	objeto.comer(self)
-		  game.say(objeto,"Comí el alpiste!")
+  method colisionarConPepita() {
+    	pepita.comer(self)
+		 // game.say(pepita,"Comí el alpiste!")
 		  game.removeVisual(self)
 	
   }
