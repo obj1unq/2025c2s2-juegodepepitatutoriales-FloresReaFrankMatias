@@ -25,7 +25,7 @@ program pepitaGame {
 	keyboard.down().onPressDo {   pepita.mover(abajo)}
 	keyboard.right().onPressDo {   pepita.mover(derecha)}
 
-	game.onTick(800, "caer", { pepita.perderAltura() })
+	game.onTick(800, "caer", { pepita.caer() })
 	
 	//game.whenCollideDo(pepita, { objeto => objeto.colisionarCon(pepita) })
 	game.onCollideDo(pepita, { objeto => objeto.colisionarConPepita()}  )

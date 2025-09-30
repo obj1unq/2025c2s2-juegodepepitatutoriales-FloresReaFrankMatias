@@ -31,44 +31,66 @@ object pepita {
 	method mover(dir) {
 		const nuevaPos = dir.siguiente(position) 
 		const distancia = position.distance(nuevaPos)
-		self.validarMover(nuevaPos)  
-		self.position(nuevaPos)         
-		self.volar(distancia)
-		self.validarEnergia()
+		if (energia > 0 && self.validarMover4(nuevaPos) ) { 
+			self.position(nuevaPos)         
+			self.volar(distancia)
+			
+		}else if (energia < 1) {
+			game.removeTickEvent("caer")
+    		game.say(self,"Pepita no tiene energía para moverse")
+    		game.stop()
+		//self.validarEnergia()
+		}
 	}
-	method validarEnergia() {
-	  if(energia < 1){
-		self.error("no tiene enrgia"  )
+	method sinEnergia() {
+	  
+		game.say(self,"no tiene enrgia"  )
 		game.stop()
-	  }
+	  
 	}
-	method validarMover(nuevaPos) { 
-		 if (energia < 1 || self.position()== silvestre.position()  || self.dentroDeLosMargenes(nuevaPos)) {
-			self.error("Pepita no se pude mover ")
-		}
-		else if (self.hayMuroEnP(nuevaPos)){
-			self.error("Hay un Muroooooo")
-		}
-	}
+//	method validarMover(nuevaPos) { 
+//		 if ( self.position()== silvestre.position()  || self.dentroDeLosMargenes(nuevaPos)) {
+//			self.error("Pepita no se pude mover ")
+//		}
+//		else if (self.hayMuroEnP(nuevaPos)){
+//			self.error("Hay un Muroooooo")
+//		}
+//	}
+	
 	method volar(kms) {
 		energia = energia - 9 - kms 	
 	}
 	
 
-	method dentroDeLosMargenes(sigPosicion) {
-	  return (sigPosicion.x() < 0 || sigPosicion.x() >= game.width()
-			     ||  sigPosicion.y() < 0 || sigPosicion.y() >= game.height()) 
-	} 
-	//--------------------  GRAVEDAD  Y MURO     --------------------------------------------
-	method hayMuroEnP(posicion) {
-		return (posicion == muro.position()) || (posicion == muro2.position())
 	
+
+
+
+	method estaDentroDeLosMargenes(pos) {
+  		return pos.x() >= 0 && pos.x() < game.width()
+         	&& pos.y() >= 0 && pos.y() < game.height()
+	}
+	
+
+	method validarMover4(nuevaPos) {
+ 	 return self.estaDentroDeLosMargenes(nuevaPos)   && not self.hayMuroEn(nuevaPos)
+	}
+	//--------------------  GRAVEDAD  Y MURO     --------------------------------------------
+	const muros = [muro, muro2]
+	method hayMuroEn(pos) {
+  		return muros.any({ muro => pos == muro.position() })
 	}
 	method perderAltura() {
 		const posAlCaer = game.at(position.x(), (position.y()-1).max(0))
-		self.validarMover(posAlCaer)
-		self.position(posAlCaer)
-		
+		if(self.validarMover4(posAlCaer)){ 
+			self.position(posAlCaer)
+		}
+	}
+	method caer() {
+		const posAlCaer= game.at(self.position().x(), self.position().y() - 1)
+		if (self.validarMover4(posAlCaer)) {
+			position = game.at(self.position().x(), self.position().y() - 1)
+		}
 	}
 	
 //------------------------  ESTADOS E IMAGEN   --------------------------
@@ -76,7 +98,7 @@ object pepita {
 		return "pepita-" + self.estado().nombre()
 	}
 	method estado() {
-		return if (energia <= 0) sinEnergia
+		return if (energia <= 0) perdedora
 		       else if (position == objetivo.position()) ganadora
 		       else if (position == perseguidor.position()) perdedora
 		       else libre
@@ -92,18 +114,16 @@ object pepita {
 //------------------------------------------------------
 	method ganar() {
 	  if (self.comidas() == 0 ){ 
-      game.say(self,"¡GANE!")
-      //game.tick(2000, game.stop() , false)
-      game.removeTickEvent("caer")
-      // game.onTick(2000, "parar juego", {game.stop()})
-		game.schedule(2000, { game.stop() } )
+      	game.say(self,"¡GANE!")
+      	game.removeTickEvent("caer")
+		game.schedule(200, { game.stop() } )
 	}
 	}
 
 method perder() {
-  	game.say(self,"¡PERDÍ!")
-    //game.onTick(2000, "Perder" , {game.stop()})		
-    game.schedule(2000, { game.stop() } )
+  	game.say(self, "Perdi")
+	game.removeTickEvent("caer")
+    game.schedule(200, { game.stop() } )
 
 }
 //-------------------------TEXT ENERGIA  ------------------------------
