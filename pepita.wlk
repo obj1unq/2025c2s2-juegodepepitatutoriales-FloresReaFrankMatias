@@ -8,7 +8,7 @@ object pepita {
 	var  position = game.origin()
   	const perseguidor = silvestre
 	const objetivo = nido  	
-	var property comidas  = 2 
+	var property cantComidas  = comidas.comidasTotales().size() 
 	
 	method energia() {
 		return energia
@@ -107,13 +107,14 @@ object pepita {
 ///--------------------   COMIDA     --------------------------------
 	method comer(comida) {
 		energia = energia + comida.energiaQueOtorga()
-		comidas -= 1
+		cantComidas -= 1
+		comidas.removerComida(comida)
 	}
 
 	
 //------------------------------------------------------
 	method ganar() {
-	  if (self.comidas() == 0 ){ 
+	  if (self.cantComidas() == 0 ){ 
       	game.say(self,"¡GANE!")
       	game.removeTickEvent("caer")
 		game.schedule(200, { game.stop() } )

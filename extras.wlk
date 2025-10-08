@@ -76,8 +76,8 @@ object arriba {
 
 //----------------------------   MURO    --------------------------------
 
-object  muro{
-  var property position = game.at(5, 7)
+class  Muro{
+  var property position //= game.at(5, 7)
 	method image() {return "muro.png"}
 	
 	//method encontroCon(cosa) {
@@ -89,20 +89,20 @@ object  muro{
   }
 }
 
-
-object  muro2{
-  var property position = game.at(5, 3)
-	method image() {return "muro.png"}
+//
+//object  muro2{
+  //var property position = game.at(5, 3)
+	//method image() {return "muro.png"}
 	
 	//method encontroCon(cosa) {
 	///	game.removeTickEvent("caer")
 	//}
-   method colisionarConPepita() {
+  // method colisionarConPepita() {
     	//pepita.comer(self)
-		  game.say(pepita,"Es un muro!")
-	
-  }
-}
+		//  game.say(pepita,"Es un muro!")
+	//
+  //}
+//}
 
 
 

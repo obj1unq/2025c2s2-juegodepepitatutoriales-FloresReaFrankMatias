@@ -1,11 +1,12 @@
 import pepita.*
 import comidas.*
+import  randomizer.*
 
 describe "Tests de Pepita" {
 
 
 	test "Al comer pepita aumenta su energia" {
-		pepita.comer(manzana)
+		pepita.comer( new Manzana( position=game.at(7,7) ) )
 		assert.equals(105, pepita.energia())
 	}
 

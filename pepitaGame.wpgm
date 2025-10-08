@@ -16,16 +16,19 @@ program pepitaGame {
 	game.addVisual(silvestre)
 	game.addVisual(nido)
 	game.addVisual(pepita)
-	game.addVisual(muro)
-	game.addVisual(muro2)
-	game.addVisual(manzana)
-	game.addVisual(alpiste)
+	game.addVisual(new Muro( position= game.at(5,7) ))
+	game.addVisual(new Muro( position= game.at(5,2) ))
+	//game.addVisual(muro2)
+	//game.addVisual(new Manzana( position=game.at(7,7) ) )
+	//game.addVisual(new Alpiste(position = game.at(2, 5), peso=20) )
 	keyboard.left().onPressDo { pepita.mover(izquierda) }
 	keyboard.up().onPressDo {  pepita.mover(arriba)}
 	keyboard.down().onPressDo {   pepita.mover(abajo)}
 	keyboard.right().onPressDo {   pepita.mover(derecha)}
 
 	game.onTick(800, "caer", { pepita.caer() })
+
+	comidas.comenzar()
 	
 	//game.whenCollideDo(pepita, { objeto => objeto.colisionarCon(pepita) })
 	game.onCollideDo(pepita, { objeto => objeto.colisionarConPepita()}  )
