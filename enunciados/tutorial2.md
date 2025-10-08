@@ -15,4 +15,4 @@ En este segundo nivel se necesita que pepita gaste energía cada vez que se muev
   - Antes de mover a pepita, controlar que no se vaya del rango visible del juego.
   - Luego de moverse, si se queda sin energía, terminar el juego.
   - Utilizar el evento `onTick` para agregar gravedad, haciendo que pepita pierda altura cada `800` milisegundos, es decir, descienda su coordenada `y` en 1, pero _sin perder energía_.
-  - Agregar muros y paredes que pepita no puede atravesar
+  - Agregar muros y paredes que pepitas no puede atravesar
